@@ -24,7 +24,7 @@ class HangmanGameSpec extends FunSpec with Matchers {
       it("returns true") {
         val game = new HangmanGame
 
-        assert(game.validInput("f") == false)
+        assert(game.validInput("f") == true)
       }
     }
   }
