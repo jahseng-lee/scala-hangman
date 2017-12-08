@@ -1,3 +1,5 @@
+import model._
+
 object Hangman {
   def main(args: Array[String]): Unit = {
     val game = new HangmanGame
