@@ -6,17 +6,16 @@ import view._
 object Hangman {
   def main(args: Array[String]): Unit = {
     val game = new HangmanGame
-    val view = new HangmanView
 
-    view.printGreeting
+    HangmanView.printGreeting
 
     while(game.running) {
-      val input = view.askForInput
+      val input = HangmanView.askForInput
 
       if(game.validInput(input)) {
         System.exit(0)
       } else {
-        view.printInvalidInputWarning(input)
+        HangmanView.printInvalidInputWarning(input)
       }
     }
   }

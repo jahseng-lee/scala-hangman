@@ -1,6 +1,6 @@
 package view
 
-class HangmanView {
+object HangmanView {
   def printGreeting: Unit = {
     println("Welcome to Hangman!")
     printDivider
