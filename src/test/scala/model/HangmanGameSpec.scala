@@ -63,5 +63,57 @@ class HangmanGameSpec extends FunSpec with Matchers {
         }
       }
     }
+
+    describe("#isWon") {
+      describe("guesses contains all letters in guess") {
+        val game = new HangmanGame(
+          startingLives = 10,
+          word = "foo",
+          guesses = List("f", "o")
+        )
+
+        it("returns true") {
+          assert(game.isWon == true)
+        }
+      }
+
+      describe("guesses does not contain all letters in guess") {
+        val game = new HangmanGame(
+          startingLives = 10,
+          word = "foo",
+          guesses = List("f")
+        )
+
+        it("returns false") {
+          assert(game.isWon == false)
+        }
+      }
+    }
+
+    describe("#isLost") {
+      describe("given a game with 0 lives") {
+        val game = new HangmanGame(
+          startingLives = 0,
+          word = "foo",
+          guesses = List("f")
+        )
+
+        it("returns true") {
+          assert(game.isLost == true)
+        }
+      }
+
+      describe("given a game with 1 life") {
+        val game = new HangmanGame(
+          startingLives = 1,
+          word = "foo",
+          guesses = List("f")
+        )
+
+        it("returns false") {
+          assert(game.isLost == false)
+        }
+      }
+    }
   }
 }

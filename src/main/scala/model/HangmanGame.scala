@@ -21,6 +21,14 @@ case class HangmanGame(startingLives: Int, word: String, guesses: List[String] =
     startingLives - incorrectGuesses.size
   }
 
+  def isWon: Boolean = {
+    word.filter(c => guesses.contains(c.toString)).size == word.length
+  }
+
+  def isLost: Boolean = {
+    lives == 0
+  }
+
   private def incorrectGuesses: List[String] = {
     guesses.filter(
       guess => !word.contains(guess)
