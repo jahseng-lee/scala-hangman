@@ -5,15 +5,18 @@ import view._
 
 object Hangman {
   def main(args: Array[String]): Unit = {
-    val game = new HangmanGame
+    val gameState = new HangmanGame(
+      startingLives = 10,
+      word = "Hangman"
+    )
 
     HangmanView.printGreeting
 
-    while(game.running) {
+    while(HangmanGame.running) {
       val input = HangmanView.askForInput
 
-      if(game.validInput(input)) {
-        System.exit(0)
+      if(HangmanGame.validInput(input)) {
+        HangmanGame.takeTurn(gameState, input)
       } else {
         HangmanView.printInvalidInputWarning(input)
       }
