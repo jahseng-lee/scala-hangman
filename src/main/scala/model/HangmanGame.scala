@@ -7,12 +7,12 @@ object HangmanGame {
 
   def takeTurn(gameState: HangmanGame, input: String): HangmanGame = {
     gameState.copy(
-      guesses = gameState.guesses :+ input
+      guesses = gameState.guesses + input
     )
   }
 }
 
-case class HangmanGame(startingLives: Int, word: String, guesses: List[String] = List()) {
+case class HangmanGame(startingLives: Int, word: String, guesses: Set[String] = Set()) {
   def lives: Int = {
     startingLives - incorrectGuesses.size
   }
@@ -29,7 +29,7 @@ case class HangmanGame(startingLives: Int, word: String, guesses: List[String] =
     lives == 0
   }
 
-  private def incorrectGuesses: List[String] = {
+  private def incorrectGuesses: Set[String] = {
     guesses.filter(
       guess => !word.contains(guess)
     )

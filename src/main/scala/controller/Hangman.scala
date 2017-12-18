@@ -12,7 +12,7 @@ object Hangman {
 
     HangmanView.printGreeting
 
-    while(HangmanGame.running) {
+    while(gameState.running) {
       val input = HangmanView.askForInput
 
       if(HangmanGame.validInput(input)) {

@@ -69,7 +69,7 @@ class HangmanGameSpec extends FunSpec with Matchers {
         val game = new HangmanGame(
           startingLives = 10,
           word = "foo",
-          guesses = List("f", "o")
+          guesses = Set("f", "o")
         )
 
         it("returns true") {
@@ -81,7 +81,7 @@ class HangmanGameSpec extends FunSpec with Matchers {
         val game = new HangmanGame(
           startingLives = 10,
           word = "foo",
-          guesses = List("f")
+          guesses = Set("f")
         )
 
         it("returns false") {
@@ -95,7 +95,7 @@ class HangmanGameSpec extends FunSpec with Matchers {
         val game = new HangmanGame(
           startingLives = 0,
           word = "foo",
-          guesses = List("f")
+          guesses = Set("f")
         )
 
         it("returns true") {
@@ -107,7 +107,7 @@ class HangmanGameSpec extends FunSpec with Matchers {
         val game = new HangmanGame(
           startingLives = 1,
           word = "foo",
-          guesses = List("f")
+          guesses = Set("f")
         )
 
         it("returns false") {
