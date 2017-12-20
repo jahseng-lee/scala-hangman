@@ -1,6 +1,7 @@
 package model
 
 import org.scalatest._
+import scala.collection.SortedSet
 
 class HangmanGameSpec extends FunSpec with Matchers {
   describe(".validInput") {
@@ -21,98 +22,98 @@ class HangmanGameSpec extends FunSpec with Matchers {
         assert(HangmanGame.validInput("f") == true)
       }
     }
+  }
 
-    describe(".taketurn") {
-      describe("given a gameState with 10 lives") {
-        val gameState = new HangmanGame(
-          startingLives = 10,
-          word = "Foo"
-        )
+  describe(".taketurn") {
+    describe("given a gameState with 10 lives") {
+      val gameState = new HangmanGame(
+        startingLives = 10,
+        word = "Foo"
+      )
 
-        describe("given an input contained in gameState#word") {
-          val wordArray = gameState.word.toCharArray
-          val input = wordArray(0).toString
+      describe("given an input contained in gameState#word") {
+        val wordArray = gameState.word.toCharArray
+        val input = wordArray(0).toString
 
-          it("returns a new HangmanGame with input inside guesses") {
-            val newGameState = HangmanGame.takeTurn(gameState, input)
+        it("returns a new HangmanGame with input inside guesses") {
+          val newGameState = HangmanGame.takeTurn(gameState, input)
 
-            assert(newGameState.guesses.contains(input))
-          }
-
-          it("returns a new HangmanGame with the same amount of lives") {
-            val newGameState = HangmanGame.takeTurn(gameState, input)
-
-            assert(newGameState.lives == gameState.lives)
-          }
+          assert(newGameState.guesses.contains(input))
         }
 
-        describe("given an input not contained in gameState#word") {
-          val input = "b"
+        it("returns a new HangmanGame with the same amount of lives") {
+          val newGameState = HangmanGame.takeTurn(gameState, input)
 
-          it("returns a new HangmanGame with input inside guesses") {
-            val newGameState = HangmanGame.takeTurn(gameState, input)
+          assert(newGameState.lives == gameState.lives)
+        }
+      }
 
-            assert(newGameState.guesses.contains(input))
-          }
+      describe("given an input not contained in gameState#word") {
+        val input = "b"
 
-          it("returns a new HangmanGame with gameState.lives - 1") {
-            val newGameState = HangmanGame.takeTurn(gameState, input)
+        it("returns a new HangmanGame with input inside guesses") {
+          val newGameState = HangmanGame.takeTurn(gameState, input)
 
-            assert(newGameState.lives == gameState.lives - 1)
-          }
+          assert(newGameState.guesses.contains(input))
+        }
+
+        it("returns a new HangmanGame with gameState.lives - 1") {
+          val newGameState = HangmanGame.takeTurn(gameState, input)
+
+          assert(newGameState.lives == gameState.lives - 1)
         }
       }
     }
+  }
 
-    describe("#isWon") {
-      describe("guesses contains all letters in guess") {
-        val game = new HangmanGame(
-          startingLives = 10,
-          word = "foo",
-          guesses = Set("f", "o")
-        )
+  describe("#isWon") {
+    describe("guesses contains all letters in guess") {
+      val game = new HangmanGame(
+        startingLives = 10,
+        word = "foo",
+        guesses = SortedSet("f", "o")
+      )
 
-        it("returns true") {
-          assert(game.isWon == true)
-        }
-      }
-
-      describe("guesses does not contain all letters in guess") {
-        val game = new HangmanGame(
-          startingLives = 10,
-          word = "foo",
-          guesses = Set("f")
-        )
-
-        it("returns false") {
-          assert(game.isWon == false)
-        }
+      it("returns true") {
+        assert(game.isWon == true)
       }
     }
 
-    describe("#isLost") {
-      describe("given a game with 0 lives") {
-        val game = new HangmanGame(
-          startingLives = 0,
-          word = "foo",
-          guesses = Set("f")
-        )
+    describe("guesses does not contain all letters in guess") {
+      val game = new HangmanGame(
+        startingLives = 10,
+        word = "foo",
+        guesses = SortedSet("f")
+      )
 
-        it("returns true") {
-          assert(game.isLost == true)
-        }
+      it("returns false") {
+        assert(game.isWon == false)
       }
+    }
+  }
 
-      describe("given a game with 1 life") {
-        val game = new HangmanGame(
-          startingLives = 1,
-          word = "foo",
-          guesses = Set("f")
-        )
+  describe("#isLost") {
+    describe("given a game with 0 lives") {
+      val game = new HangmanGame(
+        startingLives = 0,
+        word = "foo",
+        guesses = SortedSet("f")
+      )
 
-        it("returns false") {
-          assert(game.isLost == false)
-        }
+      it("returns true") {
+        assert(game.isLost == true)
+      }
+    }
+
+    describe("given a game with 1 life") {
+      val game = new HangmanGame(
+        startingLives = 1,
+        word = "foo",
+        guesses = SortedSet("f")
+      )
+
+      it("returns false") {
+        assert(game.isLost == false)
       }
     }
   }

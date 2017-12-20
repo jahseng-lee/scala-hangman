@@ -1,5 +1,7 @@
 package model
 
+import scala.collection.SortedSet
+
 object HangmanGame {
   def validInput(input: String): Boolean = {
     input.length() == 1 && input.charAt(0).isLetter
@@ -12,13 +14,13 @@ object HangmanGame {
   }
 }
 
-case class HangmanGame(startingLives: Int, word: String, guesses: Set[String] = Set()) {
+case class HangmanGame(startingLives: Int, word: String, guesses: SortedSet[String] = SortedSet()) {
   def lives: Int = {
     startingLives - incorrectGuesses.size
   }
 
   def running: Boolean = {
-    isWon || isLost
+    !isWon && !isLost
   }
 
   def isWon: Boolean = {
@@ -29,9 +31,17 @@ case class HangmanGame(startingLives: Int, word: String, guesses: Set[String] = 
     lives == 0
   }
 
-  private def incorrectGuesses: Set[String] = {
+  def incorrectGuesses: SortedSet[String] = {
     guesses.filter(
       guess => !word.contains(guess)
     )
+  }
+
+  def lastGuess: String = {
+    guesses.last
+  }
+
+  def lastTurnSuccessful: Boolean = {
+    word.contains(lastGuess)
   }
 }
